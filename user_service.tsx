@@ -4,6 +4,10 @@ class UserService {
   async signUpUser(name: string, email: string) {
     const userId = uuidv4();
     await dbCreateUser({ id: userId, name, email });
+    analytics.track('User Created', {
+      email: email,
+      userName: name
+    });
     return userId;
   }
 
